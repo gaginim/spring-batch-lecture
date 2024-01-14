@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.2.1'
+    id 'org.springframework.boot' version '3.2.0'
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
@@ -11,13 +11,56 @@ java {
     sourceCompatibility = '21'
 }
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+ext {
+    set('springCloudVersion', "2023.0.0")
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.kafka:spring-kafka'
+    compileOnly 'org.projectlombok:lombok'
+//    implementation 'org.postgresql:postgresql:42.2.5'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+////    testImplementation 'org.springframework.kafka:spring-kafka-test'
+////    testImplementation 'junit:junit:test'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+//    implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+    testImplementation 'com.h2database:h2'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql:1.19.3'
+    testImplementation 'org.postgresql:postgresql:42.2.5'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+    testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
+//    implementation 'org.apache.kafka:kafka-clients'
+
+//    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:1.0.1") {
+//        exclude group: 'ch.qos.logback', module: 'logback-classic'
+//    }
+//    testImplementation "com.navercorp.fixturemonkey:fixture-monkey-mockito:1.0.1"
+//    testImplementation "com.navercorp.fixturemonkey:fixture-monkey-jakarta-validation:1.0.1"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 tasks.named('test') {

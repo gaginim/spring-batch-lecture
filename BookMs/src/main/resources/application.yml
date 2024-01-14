@@ -3,7 +3,7 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   application:
-    name: sample
+    name: book
   profiles:
     active: default
   datasource:

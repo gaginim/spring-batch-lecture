@@ -1,0 +1,17 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/test?name=mone"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "text/plain"
+        },
+        "body": "Love, mone"
+      }
+    }
+  ]
+}

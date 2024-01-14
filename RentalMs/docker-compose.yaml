@@ -1,0 +1,14 @@
+# compose 파일 버전
+version: "3"
+services:
+  postgresql:
+    image: postgres
+    restart: always
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./data/postgres/:/var/lib/postgresql/data

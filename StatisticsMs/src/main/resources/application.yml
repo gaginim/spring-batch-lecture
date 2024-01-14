@@ -1,8 +1,5 @@
 
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   application:
     name: statistics
   profiles:
@@ -34,7 +31,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 server:
-  port: 8082
+  port: 8084
 
 logging:
   level:

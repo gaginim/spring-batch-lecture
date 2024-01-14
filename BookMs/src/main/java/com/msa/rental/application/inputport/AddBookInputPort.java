@@ -1,9 +1,9 @@
 package com.msa.rental.application.inputport;
 
 import com.msa.rental.application.outputport.BookOutputDto;
-import com.msa.rental.application.outputport.BookOutputRepository;
 import com.msa.rental.application.usecase.AddBookUsecase;
 import com.msa.rental.domain.model.Book;
+import com.msa.rental.framework.jpadaptor.BookOutputRepository;
 import com.msa.rental.framework.web.dto.BookInfoDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

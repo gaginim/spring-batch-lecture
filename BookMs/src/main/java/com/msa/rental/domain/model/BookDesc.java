@@ -1,11 +1,13 @@
 package com.msa.rental.domain.model;
 
 import com.msa.rental.domain.model.vo.Source;
+import jakarta.persistence.Embeddable;
 import java.time.LocalDateTime;
 import lombok.*;
 
 @Data
 @NoArgsConstructor
+@Embeddable
 public class BookDesc {
 
   private String description;

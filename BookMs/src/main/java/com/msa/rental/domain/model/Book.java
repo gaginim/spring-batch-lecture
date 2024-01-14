@@ -4,17 +4,23 @@ import com.msa.rental.domain.model.vo.BookStatus;
 import com.msa.rental.domain.model.vo.Classification;
 import com.msa.rental.domain.model.vo.Location;
 import com.msa.rental.domain.model.vo.Source;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Book {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private long no;
+
   private String title;
-  private BookDesc desc;
+
+  @Embedded private BookDesc desc;
   private Classification classification;
   private BookStatus bookStatus;
   private Location location;

@@ -5,6 +5,7 @@
     <file type="web" url="file://$PROJECT_DIR$/BookMs" />
     <file type="web" url="file://$PROJECT_DIR$/MemberMs" />
     <file type="web" url="file://$PROJECT_DIR$/RentalMs" />
+    <file type="web" url="file://$PROJECT_DIR$/StatisticsMs" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="openjdk-21 (2)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

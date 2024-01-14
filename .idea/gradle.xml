@@ -29,6 +29,15 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/StatisticsMs" />
+        <option name="gradleJvm" value="openjdk-21 (2)" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/StatisticsMs" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>

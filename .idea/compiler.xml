@@ -14,10 +14,10 @@
       <module name="com.msa.rental.RentalMs" target="21" />
       <module name="com.msa.rental.RentalMs.main" target="21" />
       <module name="com.msa.rental.RentalMs.test" target="21" />
-      <module name="rental" target="21" />
-      <module name="rental.main" target="21" />
-      <module name="rental.test" target="21" />
       <module name="RentalMs.main" target="21" />
+      <module name="rentalMs.RentalMs" target="21" />
+      <module name="rentalMs.RentalMs.main" target="21" />
+      <module name="rentalMs.RentalMs.test" target="21" />
       <module name="RentalMs.test" target="21" />
     </bytecodeTargetLevel>
   </component>

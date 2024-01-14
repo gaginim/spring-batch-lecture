@@ -4,13 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.*;
 
 import java.time.Duration;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
@@ -18,6 +12,25 @@ import org.junit.jupiter.api.condition.OS;
 // @DisplayNameGeneration(ReplaceUnderscores.class) // class, method 모두 사용 가능. ReplaceUnderscores 는
 // snake 표기의 _ 를 공백으로 치환
 public class StudyTest {
+
+  @BeforeAll
+  static void init() {
+    System.out.println("StudyTest.init");
+    //    System.out.println("처음 한번만 호출됨");
+    //    System.out.println("무조건 static 으로 생성해야 함");
+  }
+
+  @AfterAll
+  static void end() {
+    System.out.println("StudyTest.end");
+    //    System.out.println("처음 한번만 호출됨");
+    //    System.out.println("무조건 static 으로 생성해야 함");
+  }
+
+  @Test
+  void test() {
+    Assertions.assertEquals("hanjitoon", "hanjitoon");
+  }
 
   @Test
   @DisplayName("테스트 입니다.") // 이걸 더 권장
@@ -90,20 +103,6 @@ public class StudyTest {
     System.out.println("StudyTest.create_other");
     Study study = new Study(10);
     assertNotNull(study);
-  }
-
-  @BeforeAll
-  static void init() {
-    System.out.println("StudyTest.init");
-    //    System.out.println("처음 한번만 호출됨");
-    //    System.out.println("무조건 static 으로 생성해야 함");
-  }
-
-  @AfterAll
-  static void end() {
-    System.out.println("StudyTest.end");
-    //    System.out.println("처음 한번만 호출됨");
-    //    System.out.println("무조건 static 으로 생성해야 함");
   }
 
   @BeforeEach

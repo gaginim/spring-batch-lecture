@@ -4,7 +4,6 @@ import com.msa.rental.domain.model.BestBookStatistics;
 import com.msa.rental.domain.model.Item;
 import com.msa.rental.domain.repository.BestBookStatisticsRepository;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -19,8 +18,10 @@ public class BestBookStatisticsService {
     return bestBookStatisticsRepository.findAll();
   }
 
-  public Optional<BestBookStatistics> getBookById(String id) {
-    return bestBookStatisticsRepository.findById(id);
+  public BestBookStatistics getBookById(String id) {
+    return bestBookStatisticsRepository
+        .findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("there is no books"));
   }
 
   public BestBookStatistics dealBestBook(final Item item) {

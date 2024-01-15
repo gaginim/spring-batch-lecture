@@ -2,12 +2,15 @@ package com.msa.rental.domain.model;
 
 import java.util.UUID;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @NoArgsConstructor
+@Document
 public class BestBookStatistics {
 
-  private String id;
+  @Id private String id;
   private Item item;
   private long rentCount;
 
@@ -24,6 +27,12 @@ public class BestBookStatistics {
         .item(item)
         .rentCount(1L)
         .build();
+  }
+
+  public BestBookStatistics update(Item item, long rentCount) {
+    this.item = item;
+    this.rentCount = rentCount;
+    return this;
   }
 
   public Long increase() {

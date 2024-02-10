@@ -8,7 +8,7 @@ public interface PostPaidAble extends CommonPaidAble {
     return "PostPaidAble";
   }
 
-  default PaidType type() {
+  default PaidType getType() {
     return PaidType.POST;
   }
 }

@@ -8,7 +8,7 @@ public interface PrePaidAble extends CommonPaidAble {
     return "PrePaidAble";
   }
 
-  default PaidType type() {
+  default PaidType getType() {
     return PaidType.PRE;
   }
 }

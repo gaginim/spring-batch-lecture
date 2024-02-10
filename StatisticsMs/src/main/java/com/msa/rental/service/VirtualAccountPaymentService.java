@@ -1,8 +1,7 @@
 package com.msa.rental.service;
 
 import com.msa.rental.enums.PaidKind;
-import com.msa.rental.service.common.AbstractCustomService;
-import com.msa.rental.service.common.PostPaidAble;
+import com.msa.rental.service.common.AbstractPostPaymentService;
 import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Getter
-public class VirtualAccountPaymentService extends AbstractCustomService implements PostPaidAble {
+public class VirtualAccountPaymentService extends AbstractPostPaymentService {
   private final PaidKind kind = PaidKind.VIRTUAL_ACCOUNT;
 
   @Override

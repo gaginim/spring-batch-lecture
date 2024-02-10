@@ -7,7 +7,7 @@ public interface CommonPaidAble {
 
   String paid();
 
-  PaidType type();
+  PaidType getType();
 
   PaidKind getKind();
 }

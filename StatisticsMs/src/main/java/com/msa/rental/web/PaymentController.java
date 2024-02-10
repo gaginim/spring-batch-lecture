@@ -21,7 +21,7 @@ public class PaymentController {
   @PostMapping("/pre-payments")
   public ResponseEntity<String> findByPrePayments() {
     paidServices.stream()
-        .filter(it -> it.type().equals(PaidType.PRE))
+        .filter(it -> it.getType().equals(PaidType.PRE))
         .forEachOrdered(it -> System.out.println(it.calculate()));
     return new ResponseEntity<>("OK", HttpStatus.CREATED);
   }
@@ -31,7 +31,7 @@ public class PaymentController {
     paidServices.stream()
         .filter(
             it ->
-                it.type().equals(PaidType.PRE)
+                it.getType().equals(PaidType.PRE)
                     && it.getKind().equals(PaidKind.CREDIT_CARD)
                     && "CreditCardPaymentService".equals(it.getClass().getSimpleName()))
         .forEachOrdered(it -> System.out.println(it.calculate()));

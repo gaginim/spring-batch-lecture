@@ -40,7 +40,6 @@
 
 7. Batch 내부 실행 순서
     Job 실행 -> Step 실행 -> Tasklet 실행
-
     - Job 실행        : 일, 일감
     - Step 실행       : 일의 항목
     - Tasklet 실행    : 작업 내용. 실제 비즈니스 로직 구현

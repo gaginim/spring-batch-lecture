@@ -1,9 +1,30 @@
 spring:
+  profiles:
+    active: local
   batch:
     job:
       name: ${job.name:NONE}
+    jdbc:
+      initialize-schema: always
+
 ---
 spring:
   config:
     activate:
       on-profile: local
+  datasource:
+    hikari:
+      jdbc-url: jdbc:h2:mem:testdb
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://tommy:password@localhost:3306/batch_lecture?tcpKeepAlive=true&useServerPrepareStatement=true&tcpNoDelay=true&ssl=false
+      driver-class-name: com.mysql.jdbc.Driver

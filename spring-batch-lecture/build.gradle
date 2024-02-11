@@ -17,9 +17,21 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'
-    runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.batch:spring-batch-test'
+    
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+    // mysql
+    runtimeOnly 'mysql:mysql-connector-java:8.0.28'
+
+    // h2
+    runtimeOnly 'com.h2database:h2'
 }
 
 tasks.named('test') {

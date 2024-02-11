@@ -38,3 +38,16 @@
 6. 스프링 배치 초기화 실행 순서
     @EnableBatchProcessing -> SimpleBatchConfiguration -> BatchConfigurerConfiguration (Basic/JpaBatchConfigurer) -> BatchAutoConfiguration
 
+7. Batch 내부 실행 순서
+    Job 실행 -> Step 실행 -> Tasklet 실행
+
+    - Job 실행        : 일, 일감
+    - Step 실행       : 일의 항목
+    - Tasklet 실행    : 작업 내용. 실제 비즈니스 로직 구현
+
+----
+
+[ 부연설명 ]
+1. JobBuilderFactory 와 StepBuilderFactory 는 Deprecated 되었음.
+   대신 JobRepository 를 사용해서 처리할 수 있음
+

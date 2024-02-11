@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBatchLectureApplication {
 
   public static void main(String[] args) {
+    System.out.println("test tommy batch");
     SpringApplication.run(SpringBatchLectureApplication.class, args);
   }
 }

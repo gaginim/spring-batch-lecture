@@ -26,7 +26,7 @@
     - 총 4개의 설정 클래스를 실행시키며, 스프링 배치의 모든 초기화 및 실행구성이 이뤄진다.
     - 스프링 부트 배치의 자동 설정 클래스가 실행됨으로써 빈으로 등록된 모든 Job 을 검색해서 초기화와 동시에 Job 을 수행하도록 구성
 
-5. 스프랭 배치 초기화 설정 클래스
+5. 스프랭 배치 초기화 설정 클래스 (Spring batch 5 는 다르기 때문에 유의할 것.)
     1. BatchAutoConfiguration : 스프링 배치가 초기화 될 때 자동으로 실행되는 설정 클래스
                                 Job을 수행하는 JobLauncherApplicationRunner 빈을 생성 (JobLauncherApplicationRunner 는 ApplicationRunner 인터페이스를 상속받아 모든 빈 실행)
     2. SimpleBatchConfiguration : JobBuilderFactory 와 StepBuilderFactory 생성.
@@ -37,3 +37,4 @@
 
 6. 스프링 배치 초기화 실행 순서
     @EnableBatchProcessing -> SimpleBatchConfiguration -> BatchConfigurerConfiguration (Basic/JpaBatchConfigurer) -> BatchAutoConfiguration
+

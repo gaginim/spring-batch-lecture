@@ -1,1 +1,9 @@
-
+spring:
+  batch:
+    job:
+      name: ${job.name:NONE}
+---
+spring:
+  config:
+    activate:
+      on-profile: local

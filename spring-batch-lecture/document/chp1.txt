@@ -1,0 +1,39 @@
+1. 스프린 배치 핵심 패턴
+    - Read : 데이터베이스, 파일, 큐에서 다량의 데이터를 조회
+    - Process : 특정 방법으로 데이터를 가공
+    - Write : 데이터를 수정된 양식으로 다시 저장
+    => ETL 과 동일
+
+2. 배치 시나리오
+    - 배치 프로세스를 주기적으로 커밋
+    - 동시 다발적인 Job 의 배치 처리, 대용량 병렬 처리
+    - 실패 후 수동 또는 스케줄링에 의한 재시작
+    - 의존 관계가 있는 step 여러개를 순차적으로 처리
+    - 조건적 flow 구성을 통한 체게적이고 유연한 배치 모델 구성
+    - 반복, 재시도, Skip 처리
+
+3. 스프링 배치 아키텍처
+    - Application <-> Batch Core <-> Batch IntraStructure
+        => Application : 개발자가 만든 모든 배치 Job 과 커스텀 코드 포함
+                         비즈니스 로직에만 집중하고 공통적인 기반기술은 프레임웍이 담당
+        => Batch Core : Job 을 실행, 모니터링, 관리하는 api
+                        JobLauncher, Job, Step, Flow 등에 속함
+        => Batch Infrastructure : Application, Core 모두 공통 Intrastructure 위에서 빌드
+                                  Job 의 실행의 흐름과 처리를 위한 틀을 제공
+                                  Reader, Processor, Writer, Skip, Retry 등이 속함
+
+4. 스프링 배치 활성화하기 위해서는 @EnableBatchProcessing annotation 을 사용해야 한다
+    - 총 4개의 설정 클래스를 실행시키며, 스프링 배치의 모든 초기화 및 실행구성이 이뤄진다.
+    - 스프링 부트 배치의 자동 설정 클래스가 실행됨으로써 빈으로 등록된 모든 Job 을 검색해서 초기화와 동시에 Job 을 수행하도록 구성
+
+5. 스프랭 배치 초기화 설정 클래스
+    1. BatchAutoConfiguration : 스프링 배치가 초기화 될 때 자동으로 실행되는 설정 클래스
+                                Job을 수행하는 JobLauncherApplicationRunner 빈을 생성 (JobLauncherApplicationRunner 는 ApplicationRunner 인터페이스를 상속받아 모든 빈 실행)
+    2. SimpleBatchConfiguration : JobBuilderFactory 와 StepBuilderFactory 생성.
+                                스프린 배치의 주요 구성요소 생성 - [[*** 프록시 객체로 생성됨]]
+    3. BatchConfigurerConfiguration
+        3.1. BasicBatchConfigurer :  SimpleBatchConfiguration 에서 생성한 프록시 객체의 실제 대상 객체를 생성하는 설정 클래스
+        3.2. JpaBatchConfigurer : Jpa 관련 객체를 생성하는 설정 클래스
+
+6. 스프링 배치 초기화 실행 순서
+    @EnableBatchProcessing -> SimpleBatchConfiguration -> BatchConfigurerConfiguration (Basic/JpaBatchConfigurer) -> BatchAutoConfiguration

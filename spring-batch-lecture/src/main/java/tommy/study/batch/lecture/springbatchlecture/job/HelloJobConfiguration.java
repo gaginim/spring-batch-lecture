@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.util.Assert;
+import org.springframework.util.ObjectUtils;
 import tommy.study.batch.lecture.springbatchlecture.domain.dto.MyJobTestDto.CreateDto;
 import tommy.study.batch.lecture.springbatchlecture.domain.entity.MyJobTest;
 import tommy.study.batch.lecture.springbatchlecture.domain.repository.MyJobTestCustomRepository;
@@ -92,6 +94,10 @@ public class HelloJobConfiguration {
                   .createdAt(LocalDateTime.now())
                   .createdBy("tommy")
                   .build());
+
+      Assert.isTrue(
+          !ObjectUtils.isEmpty(resultOriginRepo) && resultCustomRepo >= 0,
+          "cannot register items.");
 
       return RepeatStatus.FINISHED;
     };

@@ -1,16 +1,14 @@
 package tommy.study.batch.lecture.springbatchlecture.domain.repository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import tommy.study.batch.lecture.springbatchlecture.domain.dto.MyJobTestDto;
 
 @Repository
+@RequiredArgsConstructor
 public class MyJobTestCustomRepository {
   private final JdbcClient jdbcClient;
-
-  public MyJobTestCustomRepository(JdbcClient jdbcClient) {
-    this.jdbcClient = jdbcClient;
-  }
 
   public int create(final MyJobTestDto.CreateDto createDto) {
 

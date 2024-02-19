@@ -1,5 +1,8 @@
 package tommy.study.batch.lecture.springbatchlecture.job;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
@@ -13,14 +16,21 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
+import tommy.study.batch.lecture.springbatchlecture.domain.dto.MyJobTestDto.CreateDto;
+import tommy.study.batch.lecture.springbatchlecture.domain.entity.MyJobTest;
+import tommy.study.batch.lecture.springbatchlecture.domain.repository.MyJobTestCustomRepository;
+import tommy.study.batch.lecture.springbatchlecture.domain.repository.MyJobTestRepository;
 
 @Configuration
+@RequiredArgsConstructor
 public class HelloJobConfiguration {
 
   private final String JOB_NAME = "myJob";
   private final String STEP1_NAME = JOB_NAME + "_step1";
-  private final String STEP2_NAME = JOB_NAME + "_step2";
   private final String TASK1_NAME = STEP1_NAME + "_task1";
+  private final String STEP2_NAME = JOB_NAME + "_step2";
+  private final MyJobTestRepository myJobTestRepository;
+  private final MyJobTestCustomRepository myJobTestCustomRepository;
 
   @Bean(JOB_NAME)
   public Job myJob(
@@ -66,6 +76,23 @@ public class HelloJobConfiguration {
       System.out.println(" >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ");
       System.out.println(" >>> hello tommy ");
       System.out.println(" >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ");
+
+      MyJobTest resultOriginRepo =
+          myJobTestRepository.save(
+              MyJobTest.builder()
+                  .name("tommy-" + UUID.randomUUID().toString().substring(1, 10))
+                  .createdAt(LocalDateTime.now())
+                  .createdBy("tommy")
+                  .build());
+
+      int resultCustomRepo =
+          myJobTestCustomRepository.create(
+              CreateDto.builder()
+                  .name("tommy-" + UUID.randomUUID().toString().substring(1, 10))
+                  .createdAt(LocalDateTime.now())
+                  .createdBy("tommy")
+                  .build());
+
       return RepeatStatus.FINISHED;
     };
   }

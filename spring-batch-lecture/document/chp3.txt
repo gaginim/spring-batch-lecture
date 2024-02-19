@@ -1,0 +1,9 @@
+
+* JobInstance
+ - Job 이 실행될 때 (=> JobLaucher 가 SimpleJob 도메인을 실행시켜 실제 배치 job 이 실행되는 것) 생성되는 Job 의 논리적 실행단위객체
+ - 고유하게 식별 가능한 작업 실행을 나타냄
+
+ - Job+Parameter 로 새로운 JobIntance 생성 => 동일한 Job+Parmaeter 로 실행하면 이미 존재하는 JobIntance 로 리턴
+    => 내부적으로 Jobname + jobkey를 가지고 Jobintance 객체를 얻음
+
+ -

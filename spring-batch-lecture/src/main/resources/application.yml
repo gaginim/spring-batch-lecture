@@ -6,7 +6,14 @@ spring:
       name: ${job.name:NONE}
     jdbc:
       initialize-schema: always
-
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - classpath:schema/test.sql
+  threads:
+    virtual:
+      enabled: true
 ---
 spring:
   config:

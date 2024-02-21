@@ -10,7 +10,7 @@ spring:
     init:
       mode: always
       schema-locations:
-        - classpath:schema/test.sql
+        - classpath:schema/*.sql
   threads:
     virtual:
       enabled: true

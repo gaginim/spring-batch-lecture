@@ -96,8 +96,7 @@ public class HelloJobConfiguration {
                   .build());
 
       Assert.isTrue(
-          !ObjectUtils.isEmpty(resultOriginRepo) && resultCustomRepo >= 0,
-          "cannot register items.");
+          !ObjectUtils.isEmpty(resultOriginRepo) && resultCustomRepo > 0, "cannot register items.");
 
       return RepeatStatus.FINISHED;
     };

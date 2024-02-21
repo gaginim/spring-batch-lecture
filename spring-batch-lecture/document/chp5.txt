@@ -1,0 +1,16 @@
+
+* SimpleJob :
+    - Step 을 실행시키는 Job 구현체
+    - SimpleJobBuilder 에 의해 생성
+    - 여러 단계의 step 으로 구성ㅇ할 수 있으며 순차적으로 실행
+
+* SimpleJob API (아래 목록 외에도 많음)
+  - start
+  - next
+  - incrementer : JobParameter 값 자동증가
+  - preventRestart : Job 이 재시작할수 있는 여부 설정 (default value false)
+  - validator : JobParameter 실행전에 올바른 구성이 되었는지 검증
+  - listener : 특정 시점에 콜백 제공받도록 JobExecutionListener 설정
+
+*
+

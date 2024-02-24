@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS my_job_test
     `name`          varchar(100)  not null comment 'name',
     created_at      DATETIME      not null COMMENT '생성일',
     created_by      VARCHAR(100)  not null COMMENT '생성자'
-) comment 'converter 설정을 관리 하기 위한 테이블';
+) comment 'my job table';

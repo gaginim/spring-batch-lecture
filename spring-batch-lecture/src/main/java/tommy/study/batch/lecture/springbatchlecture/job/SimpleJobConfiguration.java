@@ -1,10 +1,9 @@
 package tommy.study.batch.lecture.springbatchlecture.job;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
-import org.springframework.batch.core.StepContribution;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -33,6 +32,20 @@ public class SimpleJobConfiguration {
         .start(step1)
         .next(step2)
         .next(step3)
+        .incrementer(new RunIdIncrementer())
+            .validator(new JobParametersValidator() {
+                @Override
+                public void validate(JobParameters parameters) throws JobParametersInvalidException {
+
+                }
+            })
+            .preventRestart()
+            .listener(new JobExecutionListener() {
+                @Override
+                public void beforeJob(JobExecution jobExecution) {
+                    JobExecutionListener.super.beforeJob(jobExecution);
+                }
+            })
         .build();
   }
 
@@ -44,6 +57,10 @@ public class SimpleJobConfiguration {
               @Override
               public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
                   throws Exception {
+                  // debug 중지 테스트
+//                  chunkContext.getStepContext().getStepExecution().setStatus(BatchStatus.FAILED);
+//                  contribution.setExitStatus(ExitStatus.STOPPED);
+
                 System.out.println("step1 has executed");
                 return RepeatStatus.FINISHED;
               }

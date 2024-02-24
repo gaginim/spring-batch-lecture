@@ -2,6 +2,7 @@ package tommy.study.batch.lecture.springbatchlecture.job;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.*;
+import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
+import tommy.study.batch.lecture.springbatchlecture.validator.SimpleJobCustomParameterValidator;
 
 @Configuration
 @RequiredArgsConstructor
@@ -21,6 +23,8 @@ public class SimpleJobConfiguration {
   private final String STEP1_NAME = JOB_NAME + "_step1";
   private final String STEP2_NAME = JOB_NAME + "_step2";
   private final String STEP3_NAME = JOB_NAME + "_step3";
+
+  private final SimpleJobCustomParameterValidator simpleJobCustomParameterValidator;
 
   @Bean(JOB_NAME)
   public Job job(
@@ -33,18 +37,17 @@ public class SimpleJobConfiguration {
         .next(step2)
         .next(step3)
         .incrementer(new RunIdIncrementer())
-            .validator(new JobParametersValidator() {
-                @Override
-                public void validate(JobParameters parameters) throws JobParametersInvalidException {
-
-                }
-            })
-            .preventRestart()
-            .listener(new JobExecutionListener() {
-                @Override
-                public void beforeJob(JobExecution jobExecution) {
-                    JobExecutionListener.super.beforeJob(jobExecution);
-                }
+        //        .validator(simpleJobCustomParameterValidator)
+        .validator(
+            new DefaultJobParametersValidator(
+                new String[] {"name", "date"}, new String[] {"count"}))
+        .preventRestart()
+        .listener(
+            new JobExecutionListener() {
+              @Override
+              public void beforeJob(JobExecution jobExecution) {
+                JobExecutionListener.super.beforeJob(jobExecution);
+              }
             })
         .build();
   }
@@ -57,9 +60,10 @@ public class SimpleJobConfiguration {
               @Override
               public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
                   throws Exception {
-                  // debug 중지 테스트
-//                  chunkContext.getStepContext().getStepExecution().setStatus(BatchStatus.FAILED);
-//                  contribution.setExitStatus(ExitStatus.STOPPED);
+                // debug 중지 테스가
+                //
+                // chunkContext.getStepContext().getStepExecution().setStatus(BatchStatus.FAILED);
+                //                  contribution.setExitStatus(ExitStatus.STOPPED);
 
                 System.out.println("step1 has executed");
                 return RepeatStatus.FINISHED;

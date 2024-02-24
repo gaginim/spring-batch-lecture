@@ -5,12 +5,25 @@
     - 여러 단계의 step 으로 구성ㅇ할 수 있으며 순차적으로 실행
 
 * SimpleJob API (아래 목록 외에도 많음)
-  - start
-  - next
+  - start : 최초 실행할 step 설정
+  - next : 다음 실행할 step 설정
   - incrementer : JobParameter 값 자동증가
   - preventRestart : Job 이 재시작할수 있는 여부 설정 (default value false)
-  - validator : JobParameter 실행전에 올바른 구성이 되었는지 검증
+  - validator : Job Parameter 검증하는 용도. 실행전에 올바른 구성이 되었는지 검증
   - listener : 특정 시점에 콜백 제공받도록 JobExecutionListener 설정
 
-*
+* JobBuilder 를 이용해서 설정한 뒤 해당 Job 을 실행하면 JobLauncher 가 실행하면서 설정한 api 들 실행됨
+
+* validator :
+    - JobParametersValidator 인터페이스
+    - DefaultJobParametersValidator 구현체 이용해도 됨 (default 임)
+        -> 이 내부를 보면 좀더 validator 를 이해할듯
+    - 실행순서 : Simple Job 실행하면 인터페이스를 통해 validate() 실행 ->
+                    requiredKeys 와 optionalKeys 를 지정하여 validator 에 customize 함 ->
+                    그럼 validate() 실행 시 필수 key 값이 없으면 JobParametersInvalidException 떨어지고 있는 경우 Validation Success 됨
+    - 실행위치 : SimpleJobLauncher.java 의 run method 에서 job.getJobParametersValidator().validate(jobParameters); 로 실행됨
+               AbstractJob.java 의 execute method 에서 jobParametersValidator.validate(execution.getJobParameters()); 로 실행
+
+
+
 

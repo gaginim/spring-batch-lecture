@@ -60,8 +60,7 @@ public class SimpleJobConfiguration {
               @Override
               public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
                   throws Exception {
-                // debug 중지 테스가
-                //
+                // debug 중지 테스트
                 // chunkContext.getStepContext().getStepExecution().setStatus(BatchStatus.FAILED);
                 //                  contribution.setExitStatus(ExitStatus.STOPPED);
 

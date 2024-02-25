@@ -27,7 +27,10 @@
 * preventRestart : Job 의 재실행 여부 확인
     - default 값은 true 이지만 이 api 를 넣으면 false 로 처리됨
     - Job의 실행이 처음이 아닌 경우 Job의 성공/실패여부와 상관없이 preventRestart 설정에 따라 실행 여부 판단
-    -
+
+* incrementer : 필요한 값을 증가시켜 동일한 파라메터 호출하더라도 허용해줌
+    - RunIdIncrementer.class 의 getNext() 를 보면 기존의 값을 가져와서 + 1 시켜줌ㅁ
+
 
 
 

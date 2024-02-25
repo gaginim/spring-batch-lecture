@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -14,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
+import tommy.study.batch.lecture.springbatchlecture.increments.SimpleJobParameterIncrement;
 import tommy.study.batch.lecture.springbatchlecture.validator.SimpleJobCustomParameterValidator;
 
 @Configuration
@@ -25,6 +25,7 @@ public class SimpleJobConfiguration {
   private final String STEP3_NAME = JOB_NAME + "_step3";
 
   private final SimpleJobCustomParameterValidator simpleJobCustomParameterValidator;
+  private final SimpleJobParameterIncrement customJobParameterIncrement;
 
   @Bean(JOB_NAME)
   public Job job(
@@ -36,7 +37,8 @@ public class SimpleJobConfiguration {
         .start(step1)
         .next(step2)
         .next(step3)
-        .incrementer(new RunIdIncrementer())
+        //        .incrementer(new RunIdIncrementer())
+        .incrementer(customJobParameterIncrement)
         //        .validator(simpleJobCustomParameterValidator)
         .validator(
             new DefaultJobParametersValidator(

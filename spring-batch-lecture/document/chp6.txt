@@ -1,0 +1,17 @@
+
+* StepTasklet : Step의 구현체로 Tasklet 을 실행하는 도메인 객체
+    - RepeatTemplate 를 사용해서 Tasklet 의 구분을 트랜잭션 경계 내에서 반복해서 실행함
+    - Step의 실행단위는 Task기반과 Chunk기반으로 나눠서 Tasklet 을 실행
+
+* Task vs Chunk
+    - Task  : 왠만하면 단일처리. 대용량 처리도 가능하지만 복잡도가 높아짐
+        단일 작업 기반으로 처리
+        대용량 처리를 할 때 chunk 기반보다 더 복잡하게 구현해야 함
+        Job -> TaskletStep -> RepeatTemplate -> [[ Tasklet -> Business Logic ]]
+
+    - Chunk : 대용량 처리할때 사용
+        하나의 큰 덩어리를 n개 나눠서 실행
+        ItemReader, ItemProcesstor, ItemWrite 를 사용해사 ChunkOrientedTasklet 구현체 사용
+        Job -> TaskletStep -> RepeatTemplate -> [[ ChunkOrientedTasklet -> ItemReader, ItemProcessor, ItemWriter ]]
+
+*

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.*;
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
-import tommy.study.batch.lecture.springbatchlecture.service.ItemReaderService;
+import tommy.study.batch.lecture.springbatchlecture.service.CustomItemWriterService;
 
 @Configuration
 @RequiredArgsConstructor
@@ -23,7 +24,10 @@ public class AdaptorJobConfiguration {
 
   @Bean(JOB_NAME)
   public Job adaptorJob(JobRepository jobRepository, @Qualifier(STEP1_NAME) Step myStep) {
-    return new JobBuilder("adaptorJob", jobRepository).start(myStep).build();
+    return new JobBuilder("adaptorJob", jobRepository)
+        .start(myStep)
+        .incrementer(new RunIdIncrementer())
+        .build();
   }
 
   @Bean(STEP1_NAME)
@@ -33,6 +37,7 @@ public class AdaptorJobConfiguration {
         .reader(
             new ItemReader<String>() {
               int i = 0;
+
               @Override
               public String read()
                   throws Exception,
@@ -41,35 +46,23 @@ public class AdaptorJobConfiguration {
                       NonTransientResourceException {
 
                 i++;
+                System.out.println("input => " + i);
                 return i > 35 ? null : "item" + i;
               }
             })
+        .startLimit(10)
         .writer(customItemWriter())
         .build();
   }
 
-//  public ItemReaderAdapter customItemReaderAdaptorItem() {
-//    ItemReaderAdapter readerAdapter = new ItemReaderAdapter();
-//    readerAdapter.setTargetObject(ItemReaderService.class);
-//    readerAdapter.setTargetMethod("introduce");
-//    return readerAdapter;
-//  }
-
-//  @Bean
-//  public ItemWriter<ItemReaderService> itemReaderAdapterCustomItemWriter() {
-//    return items -> {
-//      System.out.println(items.getItems());
-//    };
-//  }
-
   public ItemWriter customItemWriter() {
     ItemWriterAdapter<String> adapter = new ItemWriterAdapter();
-    adapter.setTargetObject(itemReaderService());
-    adapter.setTargetMethod("introduce");
+    adapter.setTargetObject(customItemWriterService());
+    adapter.setTargetMethod("print");
     return adapter;
   }
 
-  public ItemReaderService itemReaderService() {
-    return new ItemReaderService();
+  public CustomItemWriterService customItemWriterService() {
+    return new CustomItemWriterService();
   }
 }

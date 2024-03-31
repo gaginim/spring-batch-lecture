@@ -7,10 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class ItemReaderService<T> {
+public class CustomItemWriterService<T> {
 
-  public T introduce(T item) {
-    System.out.println("introduce => " + item);
+  public T print(T item) {
+    System.out.println("output => " + item);
     return item;
   }
 }

@@ -28,7 +28,7 @@ dependencies {
 
     // mysql
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    runtimeOnly 'mysql:mysql-connector-java:8.0.28'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.25'
 
     // h2
     runtimeOnly 'com.h2database:h2'

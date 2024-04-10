@@ -2,7 +2,6 @@ package tommy.study.batch.lecture.springbatchlecture.job;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.*;
-import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.scope.context.ChunkContext;
@@ -40,9 +39,9 @@ public class SimpleJobConfiguration {
         //        .incrementer(new RunIdIncrementer())
         .incrementer(customJobParameterIncrement)
         //        .validator(simpleJobCustomParameterValidator)
-        .validator(
-            new DefaultJobParametersValidator(
-                new String[] {"name", "date"}, new String[] {"count"}))
+//        .validator(
+//            new DefaultJobParametersValidator(
+//                new String[] {"name", "date"}, new String[] {"count"}))
         .preventRestart()
         .listener(
             new JobExecutionListener() {
